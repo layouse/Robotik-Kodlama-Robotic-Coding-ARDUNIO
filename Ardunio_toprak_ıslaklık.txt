@@ -1,0 +1,31 @@
+// Sensörden okunan analog değeri tutacak değişken
+int nemDegeri = 0; 
+// Toprağın kuru sayılması için belirlediğimiz eşik değer. 
+const int KURU_ESIK_DEGERI = 700; 
+
+void setup() {
+  // Seri iletişimi başlatıyoruz. (Baud hızı: 9600)
+  Serial.begin(9600); 
+  pinMode(led/buzzer, OUTPUT);
+}
+
+void loop() {
+  //max 1023  alabilir
+  nemDegeri = analogRead(A0); //ben A0 analog pinini kullandım 
+
+  Serial.print("Analog pinin ölçtüğü değer: ");
+  Serial.print(nemDegeri);
+
+  // nemDegeri, belirlediğimiz eşik değerinden BÜYÜKSE, toprak KURU demektir.
+  if (nemDegeri > KURU_ESIK_DEGERI) {
+    Serial.println(" -> Toprak KURU (" + String(KURU_ESIK_DEGERI) + " üstü), sulama GEREKİYOR!");
+    digitalWrite(led/buzzer, 0);
+    delay(1000); 
+    digitalWrite(led/buzzer, 1); 
+    
+  } else {
+    Serial.println(" -> Toprak nemi YETERLİ.");
+    digitalWrite(led/buzzer, 0);
+  }
+  delay(100); 
+}
